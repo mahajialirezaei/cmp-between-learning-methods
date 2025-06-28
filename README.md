@@ -52,8 +52,6 @@ Preliminary results show that:
 - **Balanced Random Forest** is robust for moderate imbalance.
 - **SMOTE + Gradient Boosting** improves recall for minority classes.
 
-Detailed results (tables/plots) are available in the `results/` folder.
-
 ## Contributing
 Contributions are welcome! Please fork the repository and submit a pull request. For major changes, open an issue first to discuss the proposed changes.
 
