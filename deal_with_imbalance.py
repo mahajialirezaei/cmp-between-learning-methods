@@ -9,6 +9,9 @@ from catboost import CatBoostClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import precision_score, recall_score, f1_score
 from sklearn.metrics import average_precision_score, roc_auc_score
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
 
 def smote_tech(X_train_processed, y_train):
     classes = np.unique(y_train)
@@ -88,6 +91,17 @@ def geometric_mean_score(y_true, y_pred, pos_label=1):
     return np.sqrt(sensitivity * specificity)
 
 
+def comparing(results):
+    metrics_df = pd.DataFrame.from_dict(results, orient='index')
+    plt.figure(figsize=(12, 6))
+    sns.heatmap(metrics_df, annot=True, cmap='YlGnBu', fmt='.3f')
+    plt.title('Comparing the performance of models based on different criteria')
+    plt.show()
+
+    from scipy.stats import friedmanchisquare
+    stat, p = friedmanchisquare(*[metrics_df[metric] for metric in metrics_df.columns])
+    print(f'Friedman test: statistic={stat:.3f}, p-value={p:.4f}')
+
 
 if __name__ == '__main__':
     X_train_processed, X_test_processed, y_train, y_test = pre_processing()
@@ -96,4 +110,4 @@ if __name__ == '__main__':
     results = {}
     for name, model in models.items():
         results[name] = evaluate_model(model, X_test_processed, y_test)
-
+    comparing(results)
