@@ -58,9 +58,6 @@ def define_models(X_train_processed, y_train, X_train_smote, y_train_smote, clas
         model.fit(X_train_processed, y_train)
 
         model.fit(X_train_smote, y_train_smote)
-
-        model.set_params(**{'class_weight': None})
-        model.fit(X_train_smote, y_train_smote)
     return models
 
 
@@ -104,6 +101,7 @@ def comparing(results):
 
 
 if __name__ == '__main__':
+
     X_train_processed, X_test_processed, y_train, y_test = pre_processing()
     X_train_smote, y_train_smote, class_weights, weights = smote_tech(X_train_processed, y_train)
     models = define_models(X_train_processed, y_train, X_train_smote, y_train_smote, class_weights, weights)
